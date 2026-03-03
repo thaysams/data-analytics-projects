@@ -1,0 +1,21 @@
+{
+    "sqltools.connections": [
+        {
+            "pgOptions": {
+                "connectionTimeoutMillis": 0,
+                "idleTimeoutMillis": 0
+            },
+            "ssh": "Disabled",
+            "previewLimit": 50,
+            "server": "localhost",
+            "port": 5432,
+            "driver": "PostgreSQL",
+            "database": "olist_dw",
+            "username": "admin",
+            "name": "olist_dw"
+        }
+    ],
+    "cSpell.words": [
+        "Carregar"
+    ]
+}
