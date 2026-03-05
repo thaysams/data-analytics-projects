@@ -21,5 +21,5 @@ staging_files = {
 
 for table, file in staging_files.items():
     df = pd.read_csv(file)
-    df.to_sql(table, engine, if_exists='append', index=False)
+    df.to_sql(table, engine, if_exists='replace', index=False)
     print(f"{table} loaded with {len(df)} records.")

@@ -16,12 +16,23 @@ WHERE table_name = 'staging_sellers'
 -- Checking duplicates in tables
 -- ===============================================
 
+DROP TABLE IF EXISTS staging_customers;
+DROP TABLE IF EXISTS staging_geolocation;
+DROP TABLE IF EXISTS staging_order_items;
+DROP TABLE IF EXISTS staging_order_payments;
+DROP TABLE IF EXISTS staging_order_reviews;
+DROP TABLE IF EXISTS staging_orders;
+DROP TABLE IF EXISTS staging_products;
+DROP TABLE IF EXISTS staging_sellers;
+DROP TABLE IF EXISTS staging_product_categories;
+
 
 -- staging_customers table
-SELECT customer_unique_id, COUNT(*)
+SELECT customer_id, COUNT(*)
 FROM staging_customers
-GROUP BY customer_unique_id
-HAVING COUNT(*) >1;
+GROUP BY customer_id
+HAVING COUNT(*) >=1;
+
 
 -- all customer_unique_id are returning 3 times, which means the data is messy and we have 3 duplicates
 
@@ -39,7 +50,8 @@ HAVING COUNT(*) > 1;
 SELECT order_id, COUNT(*)
 FROM staging_order_items
 GROUP BY order_id
-HAVING COUNT(*) > 1;
+HAVING COUNT(*) >1
+ORDER BY 2 desc; 
 
 -- we have duplicates in order_id behaving the same way as staging_customer tables, which can be an error in the source of the data
 
@@ -48,7 +60,8 @@ HAVING COUNT(*) > 1;
 SELECT order_id, COUNT(*)
 FROM staging_order_payments
 GROUP BY order_id
-HAVING COUNT(*) > 1;
+HAVING COUNT(*) > 1
+ORDER BY 2;
 
 -- there is also 3 duplicates per order_id , same behavior as the other tables
 
@@ -64,28 +77,30 @@ HAVING COUNT(*) > 1;
 SELECT order_id, COUNT(*)
 FROM staging_orders
 GROUP BY order_id
-HAVING COUNT(*) > 1;
+HAVING COUNT(*) >= 1;
 
 -- staging_products table
 
 SELECT product_id, COUNT(*)
 FROM staging_products
 GROUP BY product_id
-HAVING COUNT(*) >= 1;
+HAVING COUNT(*) > 1;
 
 -- staging_sellers table
 
 SELECT seller_id, COUNT(*)
 FROM staging_sellers
 GROUP BY seller_id
-HAVING COUNT(*) >= 1;
+HAVING COUNT(*) > 1;
 
 SELECT product_category_name, COUNT(*)  
 FROM staging_product_categories
 GROUP BY product_category_name
-HAVING COUNT(*) >= 1;
+HAVING COUNT(*) >1;
 
 -- WE HAVE NO DUPLICATES IN:
+-- staging_customers
+-- staging_orders    
 -- staging_products
 -- staging_sellers
 -- staging_product_categories

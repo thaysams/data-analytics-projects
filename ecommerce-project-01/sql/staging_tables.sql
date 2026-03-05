@@ -3,8 +3,8 @@
 --DROP TABLE IF EXISTS staging_products;
 
 CREATE TABLE IF NOT EXISTS staging_customers (
-    customer_id VARCHAR (100),
-    customer_unique_id VARCHAR (100),
+    customer_id VARCHAR (100) PRIMARY KEY,
+    customer_unique_id VARCHAR (100) UNIQUE,
     customer_zip_code_prefix INT,
     customer_city VARCHAR (50),
     customer_state VARCHAR (50)
@@ -22,8 +22,8 @@ CREATE TABLE IF NOT EXISTS staging_geolocation (
 
 --- CREATING STAGING ORDERS TABLE ---
 CREATE TABLE IF NOT EXISTS staging_orders_items (
-    order_id VARCHAR(100),
-    order_item_id INT,
+    order_id VARCHAR(100) PRIMARY KEY,
+    order_item_id INT UNIQUE,
     product_id VARCHAR(100),
     seller_id VARCHAR(100),
     shipping_limit_date TIMESTAMP,
@@ -34,7 +34,7 @@ CREATE TABLE IF NOT EXISTS staging_orders_items (
 --- CREATING STAGING ORDER PAYMENTS TABLE ---
 
 CREATE TABLE IF NOT EXISTS staging_order_payments (
-    order_id VARCHAR (100),
+    order_id VARCHAR (100) PRIMARY KEY,
     payment_sequential INT,
     payment_type VARCHAR (50),
     payment_installments INT,
@@ -44,8 +44,8 @@ CREATE TABLE IF NOT EXISTS staging_order_payments (
 --- CREATING STAGING ORDER REVIEWS TABLE ---
 
 CREATE TABLE IF NOT EXISTS staging_order_reviews (
-    review_id VARCHAR(100),
-    order_id VARCHAR(100),
+    review_id VARCHAR(100) PRIMARY KEY,
+    order_id VARCHAR(100) UNIQUE,
     review_score INT,
     review_comment_title VARCHAR(100),
     review_comment_message VARCHAR(500),
@@ -57,8 +57,8 @@ CREATE TABLE IF NOT EXISTS staging_order_reviews (
 --- CREATING STAGING TABLE ORDERS ---
 
 CREATE TABLE IF NOT EXISTS staging_orders (
-    order_id VARCHAR (100),
-    customer_id VARCHAR (100),
+    order_id VARCHAR (100) PRIMARY KEY,
+    customer_id VARCHAR (100) UNIQUE,
     order_status VARCHAR (50),
     order_purchase_timestamp TIMESTAMP,
     order_approved_at TIMESTAMP,
@@ -71,7 +71,7 @@ CREATE TABLE IF NOT EXISTS staging_orders (
 
 
 CREATE TABLE IF NOT EXISTS staging_products (
-    product_id VARCHAR (100),
+    product_id VARCHAR (100) PRIMARY KEY,
     product_category_name VARCHAR (100),
     product_name_lenght INT,
     product_description_lenght INT,
@@ -85,7 +85,7 @@ CREATE TABLE IF NOT EXISTS staging_products (
 --- CREATING STAGING SELLERS TABLE ---
 
 CREATE TABLE IF NOT EXISTS staging_sellers (
-    seller_id VARCHAR (100),
+    seller_id VARCHAR (100) PRIMARY KEY,
     seller_zip_code_prefix INT,
     seller_city VARCHAR (50),
     seller_state VARCHAR (50)
@@ -94,8 +94,8 @@ CREATE TABLE IF NOT EXISTS staging_sellers (
 --- CREATING STAGING PRODUCT CATEGORIES TABLE ---
 
 CREATE TABLE IF NOT EXISTS staging_product_categories (
-    product_category_name VARCHAR (100),
-    product_category_name_english VARCHAR (100)
+    product_category_name VARCHAR (100) UNIQUE,
+    product_category_name_english VARCHAR (100) UNIQUE
 );
 
 
